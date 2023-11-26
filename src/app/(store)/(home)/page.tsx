@@ -1,11 +1,10 @@
 import { api } from '@data/api';
 import { ProductDTO } from '@dtos/products';
+import { formatPrice } from '@utils/format-price';
 import Image from 'next/image';
 import Link from 'next/link';
 
 async function fetchFeaturedProducts(): Promise<ProductDTO[]> {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-
   const response = await api('/products/featured', {
     next: {
       revalidate: 60 * 5, // 5 minutes
@@ -17,15 +16,6 @@ async function fetchFeaturedProducts(): Promise<ProductDTO[]> {
 
 export default async function Home() {
   const [highlightedProduct, ...otherProducts] = await fetchFeaturedProducts();
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
 
   return (
     <main className="grid max-h-[860px] grid-cols-9 grid-rows-6 gap-6">
