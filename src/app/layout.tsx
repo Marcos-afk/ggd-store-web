@@ -6,7 +6,10 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
-  title: 'GGD Store',
+  title: {
+    template: '%s | GGD Store',
+    default: 'GGD Store',
+  },
 };
 
 export default function RootLayout({

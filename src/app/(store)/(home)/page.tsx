@@ -1,8 +1,14 @@
 import { api } from '@data/api';
 import { ProductDTO } from '@dtos/products';
 import { formatPrice } from '@utils/format-price';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: 'Home page',
+};
 
 async function fetchFeaturedProducts(): Promise<ProductDTO[]> {
   const response = await api('/products/featured', {
