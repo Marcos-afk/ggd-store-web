@@ -5,6 +5,9 @@ const envSchema = z.object({
     .string()
     .min(1, { message: 'NEXT_PUBLIC_API_URL é requerido' })
     .url({ message: 'NEXT_PUBLIC_API_URL deve ser uma URL válida' }),
+  APP_URL: z.string().min(1, { message: 'APP_URL é requerido' }).url({
+    message: 'APP_URL deve ser uma URL válida',
+  }),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

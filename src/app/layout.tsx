@@ -10,6 +10,11 @@ export const metadata: Metadata = {
     template: '%s | GGD Store',
     default: 'GGD Store',
   },
+  description: 'GGD Store - A loja de roupas mais legal do Brasil!',
+  keywords: ['ggd', 'store', 'ggd store', 'loja', 'roupas', 'brasil'],
+  creator: 'GGD Store',
+  publisher: 'GGD Store',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_API_BASE_URL!),
 };
 
 export default function RootLayout({
