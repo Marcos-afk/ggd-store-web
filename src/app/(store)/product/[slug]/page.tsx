@@ -1,3 +1,4 @@
+import { AddToCartButton } from '@components/add-to-cart-button';
 import { api } from '@data/api';
 import { ProductDTO } from '@dtos/products';
 import { formatPrice } from '@utils/format-price';
@@ -101,12 +102,7 @@ export default async function Product({ params }: ProductProps) {
             </button>
           </div>
         </div>
-        <button
-          type="button"
-          className="mt-8 flex h-12 items-center justify-center rounded-full bg-emerald-600 text-white"
-        >
-          Adicionar ao carrinho
-        </button>
+        <AddToCartButton productId={String(product.id)} />
       </div>
     </main>
   );
