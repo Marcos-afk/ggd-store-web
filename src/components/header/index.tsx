@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { CartWidget } from '@components/cart-widget';
 import { SearchForm } from '@components/search-form';
 import Image from 'next/image';
@@ -10,7 +12,9 @@ export function Header() {
         <Link href="/" className="text-2xl font-extrabold text-white">
           GGD Store
         </Link>
-        <SearchForm />
+        <Suspense fallback={null}>
+          <SearchForm />
+        </Suspense>
       </div>
       <div className="flex items-center gap-4">
         <CartWidget />
