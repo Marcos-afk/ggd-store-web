@@ -14,40 +14,35 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install pnpm
+      - name: Install PNPM
         uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
       - name: Get pnpm store directory
-        id: store-path
-        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - uses: actions/cache@v3
-        name: Setup Cypress cache
-        with:
-          path: |
-            ~/.cache/Cypress
-            ./cypress/videos
-          key: ${{ runner.os }}-cypress-${{ hashFiles('**/cypress.json') }}
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: pnpm install
 
+      - uses: actions/cache@v3
+        name: Setup Cypress cache
+        with:
+          path: ~/.cache
+          key:
+            ${{ runner.os }}-cypress-installation-${{
+            hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-installation-
+
       - name: Cypress run
-        uses: cypress-io/github-action@v6.6.0
+        uses: cypress-io/github-action@v6
         env:
           APP_URL: 'http://localhost:3000'
-          NEXT_PUBLIC_API_BASE_URL: 'https://ignite-devstore-api.vercel.app'
+          NEXT_PUBLIC_API_BASE_URL: 'https://ignite-devstore-api-eight.vercel.app/'
         with:
-          build: pnpm run build
-          start: pnpm start
+          build: npm run build
+          start: npm start
